@@ -10,7 +10,6 @@ namespace Src.Core.Player.PlayerCore
         private void Awake()
         {
             playerData = new PlayerData();
-            playerControls = new PlayerControls();
         }
 
     }
