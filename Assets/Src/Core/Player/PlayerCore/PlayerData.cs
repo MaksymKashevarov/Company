@@ -2,9 +2,9 @@ namespace Src.Core.Player.PlayerCore
 {
     public class PlayerData
     {
-        private float _credits;
+        private long _credits;
 
-        public float Credits
+        public long Credits
         {
             get => _credits;
             set => _credits = value;

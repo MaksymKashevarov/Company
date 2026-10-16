@@ -4,11 +4,13 @@ namespace Src.Core.Player.PlayerCore
 
     public class PlayerCore : MonoBehaviour
     {
+        [SerializeField] private PlayerControls playerControls;
         private PlayerData playerData;
 
         private void Awake()
         {
             playerData = new PlayerData();
+            playerControls = new PlayerControls();
         }
 
     }
