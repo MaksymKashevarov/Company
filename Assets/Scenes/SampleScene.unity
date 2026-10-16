@@ -165,6 +165,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7434497f3fe2f134287f6af1f59a0a8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Src.Core.Player.PlayerCore.PlayerControls
+  inputActions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  playerCamera: {fileID: 330585545}
+  movementSpeed: 15
+  boostMultiplier: 3
+  panSpeed: 0.002
+  distance: 20
+  minDistance: 5
+  maxDistance: 80
+  rotationSpeed: 0.2
+  yaw: 0
+  pitch: 45
+  minPitch: 10
+  maxPitch: 80
+  zoomSpeed: 2
 --- !u!114 &81428424
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,13 +278,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.9238795}
+  m_LocalPosition: {x: 0, y: 14.142136, z: -14.142136}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 81428422}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
 --- !u!114 &330585547
 MonoBehaviour:
   m_ObjectHideFlags: 0
