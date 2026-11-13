@@ -8,6 +8,7 @@ namespace Src.Core.Player.PlayerCore
     {
         [Header("References")]
         [SerializeField] private Camera playerCamera;
+        [SerializeField] private PlayerInput _input;
 
         [Header("Movement")]
         [Min(0f)] [SerializeField] private float movementSpeed = 15f;
