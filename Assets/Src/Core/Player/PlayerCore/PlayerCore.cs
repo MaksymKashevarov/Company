@@ -17,7 +17,6 @@ namespace Src.Core.Player.PlayerCore
                 Debug.LogAssertion("Missing PlayerControls... Failure");
             }
 
-            playerControls.Initialize();
         }
 
     }
