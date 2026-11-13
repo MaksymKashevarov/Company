@@ -14,7 +14,7 @@ namespace Src.Core.Player.PlayerCore
 
             if (playerControls == null)
             {
-                playerControls = GetComponent<PlayerControls>();
+                Debug.LogAssertion("Missing PlayerControls... Failure");
             }
 
             playerControls.Initialize();
