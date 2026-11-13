@@ -6,76 +6,108 @@ namespace Src.Core.Player.PlayerCore
     [DisallowMultipleComponent]
     public class PlayerControls : MonoBehaviour
     {
-        [SerializeField] private PlayerInput _playerInput;
         [Header("References")]
-        [SerializeField] private InputActionAsset inputActions;
-        [Tooltip("The camera orbiting this player rig. Uses a child Camera if left empty.")]
         [SerializeField] private Camera playerCamera;
 
         [Header("Movement")]
-        [Min(0f)]
-        [SerializeField] private float movementSpeed = 15f;
-        [Min(1f)]
-        [SerializeField] private float boostMultiplier = 3f;
-        [Tooltip("Horizontal drag distance per mouse pixel, scaled by the orbit distance.")]
-        [Min(0f)]
-        [SerializeField] private float panSpeed = 0.002f;
+        [Min(0f)] [SerializeField] private float movementSpeed = 15f;
+        [Min(1f)] [SerializeField] private float boostMultiplier = 3f;
+        [Min(0f)] [SerializeField] private float panSpeed = 0.002f;
 
         [Header("Orbit")]
-        [Tooltip("Distance from this player rig's position, which is the virtual focus point.")]
-        [Min(0.1f)]
-        [SerializeField] private float distance = 20f;
-        [Min(0.1f)]
-        [SerializeField] private float minDistance = 5f;
-        [Min(0.1f)]
-        [SerializeField] private float maxDistance = 80f;
-        [Tooltip("Degrees of rotation per mouse pixel while the right mouse button is held.")]
-        [Min(0f)]
-        [SerializeField] private float rotationSpeed = 0.2f;
+        [Min(0.1f)] [SerializeField] private float distance = 20f;
+        [Min(0.1f)] [SerializeField] private float minDistance = 5f;
+        [Min(0.1f)] [SerializeField] private float maxDistance = 80f;
+        [Min(0f)] [SerializeField] private float rotationSpeed = 0.2f;
         [SerializeField] private float yaw;
         [SerializeField] private float pitch = 45f;
-        [Range(1f, 89f)]
-        [SerializeField] private float minPitch = 10f;
-        [Range(1f, 89f)]
-        [SerializeField] private float maxPitch = 80f;
+        [Range(1f, 89f)] [SerializeField] private float minPitch = 10f;
+        [Range(1f, 89f)] [SerializeField] private float maxPitch = 80f;
 
         [Header("Zoom")]
-        [Tooltip("Orbit distance change per scroll input unit. Scroll up zooms in.")]
-        [Min(0f)]
-        [SerializeField] private float zoomSpeed = 2f;
+        [Min(0f)] [SerializeField] private float zoomSpeed = 2f;
 
-        private InputActionAsset runtimeInputActions;
-        private InputActionMap playerActionMap;
-        private InputAction moveAction;
-        private InputAction lookAction;
-        private InputAction zoomAction;
-        private InputAction rotateAction;
-        private InputAction panAction;
-        private InputAction boostAction;
+        private Vector2 moveInput;
+        private Vector2 lookInput;
+        private float zoomInput;
+        private bool rotating;
+        private bool panning;
+        private bool boosting;
 
-        // Safe to call from PlayerCore.Awake or OnEnable, regardless of Awake order.
-        public void Initialize()
+        private void Awake() => ApplyCameraPose();
+
+        private void Update()
         {
-            if (runtimeInputActions != null)
-            {
+            if (moveInput == Vector2.zero && lookInput == Vector2.zero && zoomInput == 0f)
                 return;
-            }
 
-            if (playerCamera == null)
-            {
-                Debug.LogAssertion("Error, No Camera, Fix it now!");
-                return;
-            }
+            ApplyLook();
+            ApplyMovement();
+            ApplyZoom();
+            ApplyCameraPose();
 
-            if (inputActions == null || playerCamera == null || playerCamera.transform == transform)
+            lookInput = Vector2.zero;
+            zoomInput = 0f;
+        }
+
+        public void OnMove(InputValue value) =>
+            moveInput = Vector2.ClampMagnitude(value.Get<Vector2>(), 1f);
+
+        public void OnLook(InputValue value) =>
+            lookInput = value.Get<Vector2>();
+
+        public void OnZoom(InputValue value) =>
+            zoomInput = value.Get<float>();
+
+        public void OnRotate(InputValue value) =>
+            rotating = value.isPressed;
+
+        public void OnPan(InputValue value) =>
+            panning = value.isPressed;
+
+        public void OnBoost(InputValue value) =>
+            boosting = value.isPressed;
+
+        private void ApplyLook()
+        {
+            if (rotating)
             {
-                Debug.LogError("PlayerControls requires an InputActionAsset and a separate camera. " +
-                    "Assign the input asset and a child Camera in the Inspector.", this);
-                enabled = false;
-                return;
+                yaw = Mathf.Repeat(yaw + lookInput.x * rotationSpeed, 360f);
+                pitch = Mathf.Clamp(pitch - lookInput.y * rotationSpeed, minPitch, maxPitch);
+            }
+            else if (panning)
+            {
+                transform.position -= Quaternion.Euler(0f, yaw, 0f) *
+                    new Vector3(lookInput.x, 0f, lookInput.y) * panSpeed * distance;
             }
         }
 
+        private void ApplyMovement()
+        {
+            if (moveInput == Vector2.zero)
+                return;
 
+            float speed = movementSpeed * (boosting ? boostMultiplier : 1f);
+            Vector3 direction = Quaternion.Euler(0f, yaw, 0f) *
+                new Vector3(moveInput.x, 0f, moveInput.y);
+
+            transform.position += direction * speed * Time.deltaTime;
+        }
+
+        private void ApplyZoom()
+        {
+            if (zoomInput == 0f)
+                return;
+
+            distance = Mathf.Clamp(distance - zoomInput / 120f * zoomSpeed,
+                minDistance, maxDistance);
+        }
+
+        private void ApplyCameraPose()
+        {
+            Quaternion rotation = Quaternion.Euler(pitch, yaw, 0f);
+            Vector3 position = transform.position - rotation * Vector3.forward * distance;
+            playerCamera.transform.SetPositionAndRotation(position, rotation);
+        }
     }
 }
