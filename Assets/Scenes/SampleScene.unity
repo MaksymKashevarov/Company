@@ -166,9 +166,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7434497f3fe2f134287f6af1f59a0a8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Src.Core.Player.PlayerCore.PlayerControls
-  _playerInput: {fileID: 81428425}
-  inputActions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   playerCamera: {fileID: 330585545}
+  _input: {fileID: 81428425}
   movementSpeed: 15
   boostMultiplier: 3
   panSpeed: 0.002
