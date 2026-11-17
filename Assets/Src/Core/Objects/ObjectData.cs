@@ -1,4 +1,4 @@
-namespace Core.Objects
+namespace Src.Core.Objects
 {
     using UnityEngine;
 
