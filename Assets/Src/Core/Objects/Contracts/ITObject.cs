@@ -1,6 +1,6 @@
 namespace Src.Core.Objects
 {
-    public interface TObject
+    public interface ITObject
     {
 
     }
