@@ -2,6 +2,7 @@ namespace Src.Core.Player.PlayerCore
 {
     using UnityEngine;
     using UnityEngine.InputSystem;
+    using Src.Core.Objects;
 
     [DisallowMultipleComponent]
     public class PlayerControls : MonoBehaviour
@@ -71,6 +72,16 @@ namespace Src.Core.Player.PlayerCore
 
         public void OnWorldClick(InputValue value)
         {
+            if (!value.isPressed)
+                return;
+
+            Vector2 mousePosition = Mouse.current.position.ReadValue();
+            Ray ray = playerCamera.ScreenPointToRay(mousePosition);
+
+            if (!Physics.Raycast(ray, out RaycastHit hit))
+                return;
+
+            ITObject obj = hit.collider.GetComponent<ITObject>();
         }
 
         private void ApplyLook()
