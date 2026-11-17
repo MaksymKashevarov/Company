@@ -69,6 +69,10 @@ namespace Src.Core.Player.PlayerCore
         public void OnBoost(InputValue value) =>
             boosting = value.isPressed;
 
+        public void OnWorldClick(InputValue value)
+        {
+        }
+
         private void ApplyLook()
         {
             if (rotating)
