@@ -10,6 +10,7 @@ namespace Src.Core.Player.PlayerCore
         [Header("References")]
         [SerializeField] private Camera playerCamera;
         [SerializeField] private PlayerInput _input;
+        private PlayerInterfaceController _controller;
 
         [Header("Movement")]
         [Min(0f)] [SerializeField] private float movementSpeed = 15f;
@@ -82,6 +83,7 @@ namespace Src.Core.Player.PlayerCore
                 return;
 
             ITObject obj = hit.collider.GetComponent<ITObject>();
+            _controller.ProcessClickOnObject(obj);
         }
 
         private void ApplyLook()
@@ -124,6 +126,11 @@ namespace Src.Core.Player.PlayerCore
             Quaternion rotation = Quaternion.Euler(pitch, yaw, 0f);
             Vector3 position = transform.position - rotation * Vector3.forward * distance;
             playerCamera.transform.SetPositionAndRotation(position, rotation);
+        }
+
+        public void AttachController(PlayerInterfaceController controller)
+        {
+            _controller = controller;
         }
     }
 }

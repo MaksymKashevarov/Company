@@ -4,7 +4,7 @@ namespace Src.Core.UI
 
     public class ActionSelector : MonoBehaviour
     {
-
+        [SerializeField] private ActionComponent _actionComponent;
     }
 
 }
