@@ -6,6 +6,7 @@ namespace Src.Core.Player.PlayerCore
     public class PlayerCore : MonoBehaviour
     {
         [SerializeField] private PlayerControls playerControls;
+        [SerializeField] private Canvas _canvas;
         private PlayerData playerData;
 
         private void Awake()

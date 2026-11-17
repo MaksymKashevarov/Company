@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08ffbad1a8009774dbca894f7863b81a, type: 3}
   m_Name: Apple
   m_EditorClassIdentifier: Assembly-CSharp::Core.Objects.ObjectData
-  _objectName: 
-  _isConsumable: 0
+  _objectName: Apple
+  _isConsumable: 1
