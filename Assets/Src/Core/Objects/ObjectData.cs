@@ -7,6 +7,7 @@ namespace Src.Core.Objects
     {
         [SerializeField] private string _objectName;
         [SerializeField] private bool _isConsumable;
+        [SerializeField] private bool _isPersistent;
 
     }
 
