@@ -27,6 +27,7 @@ namespace Src.Core.Player.PlayerCore
                 return;
             }
             _controller.BindComponents(_canvas, _selector);
+            playerControls.AttachController(_controller);
 
         }
 
