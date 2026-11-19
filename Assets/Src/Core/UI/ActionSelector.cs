@@ -11,6 +11,7 @@ namespace Src.Core.UI
 
         public void RequestActionBuild(ITObject tObject)
         {
+            _resetActions();
             ObjectData data = tObject.GetObjectData();
             if (data == null)
             {
