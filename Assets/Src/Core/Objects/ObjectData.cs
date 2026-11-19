@@ -9,6 +9,15 @@ namespace Src.Core.Objects
         [SerializeField] private bool _isConsumable;
         [SerializeField] private bool _isPersistent;
 
+        public bool IsPersistent()
+        {
+            return _isPersistent;
+        }
+
+        public bool IsConsumable()
+        {
+            return _isConsumable;
+        }
     }
 
 }
