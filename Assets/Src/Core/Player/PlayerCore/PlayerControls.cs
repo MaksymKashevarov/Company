@@ -83,7 +83,10 @@ namespace Src.Core.Player.PlayerCore
                 return;
 
             ITObject obj = hit.collider.GetComponent<ITObject>();
-            _controller.ProcessClickOnObject(obj);
+            if (obj == null)
+                return;
+
+            _controller.ProcessClickOnObject(obj, mousePosition);
         }
 
         private void ApplyLook()
