@@ -15,8 +15,7 @@ namespace Src.Core.Player
         }
         public void ProcessClickOnObject(ITObject tObject)
         {
-            
-
+            GameObject selectedObject = tObject.GetGameObject();
         }
     }
 

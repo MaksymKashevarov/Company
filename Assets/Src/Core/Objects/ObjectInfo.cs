@@ -7,6 +7,11 @@ namespace Src.Core.Objects
     {
         [SerializeField] private ObjectData _objectType;
 
+        public GameObject GetGameObject()
+        {
+            return this.gameObject;
+        }
+
         public ObjectData GetObjectData()
         {
             return _objectType;
