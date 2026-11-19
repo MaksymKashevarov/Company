@@ -1,5 +1,6 @@
 namespace Src.Core.UI
 {
+    using Src.Core.Objects;
     using System.Collections.Generic;
     using UnityEngine;
 
@@ -7,6 +8,21 @@ namespace Src.Core.UI
     {
         [SerializeField] private ActionComponent _actionComponent;
         private List<ActionComponent> _actions = new List<ActionComponent>();
+
+        public void RequestActionBuild(ITObject tObject)
+        {
+            ObjectData data = tObject.GetObjectData();
+            if (data == null)
+            {
+                return;
+            }
+            if (!data.IsPersistent())
+            {
+                ActionComponent actionComponent = _buildAction("Delete");
+            }
+
+        }
+
 
         private ActionComponent _buildAction(string buttonText)
         {
